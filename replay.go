@@ -1,4 +1,4 @@
-// Package replay provides GoReplay.
+// Package replay provides semi-deterministic replayer.
 package replay
 
 import (
@@ -8,31 +8,31 @@ import (
 	"time"
 )
 
-// Inject calls DefaultGoReplay.Inject().
+// Inject calls DefaultReplayer.Inject().
 func Inject(context []byte) {
-	if DefaultGoReplay == nil {
+	if DefaultReplayer == nil {
 		// should not panic here
-		log.Printf("GoReplay called before initialization")
+		log.Printf("Replayer called before initialization")
 		return
 	}
-	DefaultGoReplay.Inject(context)
+	DefaultReplayer.Inject(context)
 }
 
-// GoReplay is an instance of GoReplay.
-type GoReplay struct {
+// Replayer is an instance of Replayer.
+type Replayer struct {
 	// Enabled is true if this instance is enabled.
 	Enabled bool
 	// Debug is true if debugging mode.
 	Debug bool
 	// Seed is an arbitrary string for replaying execution.
-	// If seed is an empty string, it disables GoReplay.
+	// If seed is an empty string, it disables Replayer.
 	Seed string
-	// Max is the max value for delays injected by GoReplay.
+	// Max is the max value for delays injected by Replayer.
 	Max time.Duration
 }
 
-// Init initializes GoReplay.
-func (gr *GoReplay) Init() error {
+// Init initializes Replayer.
+func (r *Replayer) Init() error {
 	// nothing to do currently
 	return nil
 }
@@ -40,37 +40,37 @@ func (gr *GoReplay) Init() error {
 // Inject injects a random delay using context.
 // The delay can be replayed with the seed value.
 // Context can be nil.
-func (gr *GoReplay) Inject(context []byte) {
-	if !gr.Enabled {
+func (r *Replayer) Inject(context []byte) {
+	if !r.Enabled {
 		return
 	}
-	t := gr.inject(context)
-	if gr.Debug {
+	t := r.inject(context)
+	if r.Debug {
 		log.Printf("t=%s (seed=%s, context=%s)",
-			t, gr.Seed, context)
+			t, r.Seed, context)
 	}
 	time.Sleep(t)
 }
 
-func (gr *GoReplay) inject(context []byte) time.Duration {
+func (r *Replayer) inject(context []byte) time.Duration {
 	h := fnv.New64a()
-	h.Write([]byte(gr.Seed))
+	h.Write([]byte(r.Seed))
 	if context != nil {
 		h.Write([]byte(context))
 	}
 	// TODO: hash runtime.Stack()
 	ui64 := h.Sum64()
-	t := time.Duration(ui64 % uint64(gr.Max))
+	t := time.Duration(ui64 % uint64(r.Max))
 	return t
 }
 
-// DefaultGoReplay is the default instance of GoReplay.
-var DefaultGoReplay *GoReplay
+// DefaultReplayer is the default instance of Replayer.
+var DefaultReplayer *Replayer
 
-// DefaultSeed is the default seed for DefaultGoReplay.
+// DefaultSeed is the default seed for DefaultReplayer.
 const DefaultSeed = ""
 
-// DefaultMax is the default max delay for DefaultGoReplay.
+// DefaultMax is the default max delay for DefaultReplayer.
 const DefaultMax = "10ms"
 
 func init() {
@@ -81,7 +81,7 @@ func init() {
 
 	seed := os.Getenv("GRSEED")
 	if seed == "" {
-		log.Printf("GRSEED is not set. Disabling GoReplay.")
+		log.Printf("GRSEED is not set. Disabling Replayer.")
 		enabled = false
 	}
 
@@ -95,15 +95,15 @@ func init() {
 		enabled = false
 	}
 
-	DefaultGoReplay = &GoReplay{
+	DefaultReplayer = &Replayer{
 		Enabled: enabled,
 		Debug:   debug,
 		Seed:    seed,
 		Max:     max,
 	}
-	err = DefaultGoReplay.Init()
+	err = DefaultReplayer.Init()
 	if err != nil {
 		log.Printf("Error while initializing: %s", err)
-		DefaultGoReplay.Enabled = false
+		DefaultReplayer.Enabled = false
 	}
 }

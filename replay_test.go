@@ -7,15 +7,15 @@ import (
 )
 
 func TestInjectWithFixedSeedAndNilContext(t *testing.T) {
-	gr := &GoReplay{
+	r := &Replayer{
 		Enabled: true,
 		Debug:   true,
 		Seed:    "seed",
 		Max:     10 * time.Millisecond,
 	}
-	duration := gr.inject(nil)
+	duration := r.inject(nil)
 	for i := 0; i < 100; i++ {
-		x := gr.inject(nil)
+		x := r.inject(nil)
 		if duration != x {
 			t.Fatalf("Unstable output: %s != %s", duration, x)
 		}
@@ -23,16 +23,16 @@ func TestInjectWithFixedSeedAndNilContext(t *testing.T) {
 }
 
 func TestInjectWithFixedSeedAndVariableContext(t *testing.T) {
-	gr := &GoReplay{
+	r := &Replayer{
 		Enabled: true,
 		Debug:   true,
 		Seed:    "seed",
 		Max:     10 * time.Millisecond,
 	}
 	matched := 0
-	duration := gr.inject(nil)
+	duration := r.inject(nil)
 	for i := 0; i < 100; i++ {
-		x := gr.inject([]byte(fmt.Sprintf("i=%d", i)))
+		x := r.inject([]byte(fmt.Sprintf("i=%d", i)))
 		if duration == x {
 			t.Logf("match on i=%d", i)
 			matched++
