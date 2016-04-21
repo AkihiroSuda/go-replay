@@ -81,7 +81,9 @@ func init() {
 
 	seed := os.Getenv("GRSEED")
 	if seed == "" {
-		log.Printf("GRSEED is not set. Disabling Replayer.")
+		if debug {
+			log.Printf("GRSEED is not set. Disabling GoReplay.")
+		}
 		enabled = false
 	}
 
