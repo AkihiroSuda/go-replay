@@ -1,5 +1,5 @@
-// Package goreplay provides GoReplay.
-package goreplay
+// Package replay provides GoReplay.
+package replay
 
 import (
 	"hash/fnv"

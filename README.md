@@ -1,8 +1,8 @@
 # GoReplay: record-less semi-deterministic replayer for Go programs
 
-[![GoDoc](https://godoc.org/github.com/AkihiroSuda/goreplay?status.svg)](https://godoc.org/github.com/AkihiroSuda/goreplay)
-[![Build Status](https://travis-ci.org/AkihiroSuda/goreplay.svg?branch=master)](https://travis-ci.org/AkihiroSuda/goreplay)
-[![Go Report Card](https://goreportcard.com/badge/github.com/AkihiroSuda/goreplay)](https://goreportcard.com/report/github.com/AkihiroSuda/goreplay)
+[![GoDoc](https://godoc.org/github.com/AkihiroSuda/go-replay?status.svg)](https://godoc.org/github.com/AkihiroSuda/go-replay)
+[![Build Status](https://travis-ci.org/AkihiroSuda/go-replay.svg?branch=master)](https://travis-ci.org/AkihiroSuda/go-replay)
+[![Go Report Card](https://goreportcard.com/badge/github.com/AkihiroSuda/go-replay)](https://goreportcard.com/report/github.com/AkihiroSuda/go-replay)
 
 GoReplay replays concurrent Go programs _semi-deterministically_ without recording concrete events.
 
@@ -25,7 +25,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/AkihiroSuda/goreplay"
+	"github.com/AkihiroSuda/go-replay"
 )
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 		wg.Add(1)
 		go func(i interface{}) {
 			msg := fmt.Sprintf("i=%d", i)
-			goreplay.Inject([]byte(msg))
+			replay.Inject([]byte(msg))
 			fmt.Printf("%s\n", msg)
 			wg.Done()
 		}(i)

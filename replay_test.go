@@ -1,4 +1,4 @@
-package goreplay
+package replay
 
 import (
 	"fmt"
