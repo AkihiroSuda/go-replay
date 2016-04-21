@@ -12,7 +12,7 @@ GoReplay injects `time.Sleep(time.Duration(hash(seed, context, stack)) % maxInte
  * `seed`: environmental variable `GRSEED`. You can replay the execution by remembering and setting `GRSEED`. The default value is empty value and it disables GoReplay.
  * `context`: optional `[]byte` slice.
  * `stack`: runtime stack. (planned)
- * `maxInterval`: environmental variable `GRMAX` (should be `time.Duration` string). The default value is `10msec`.
+ * `maxInterval`: environmental variable `GRMAX` (should be `time.Duration` string). The default value is `10ms`.
 
 ## Usage
 
