@@ -1,6 +1,6 @@
 # GoReplay: record-less semi-deterministic replayer for Go programs
 
-[![GoDoc](https://godoc.org/github.com/AkihiroSuda/goreplay/earthquake?status.svg)](https://godoc.org/github.com/AkihiroSuda/goreplay/earthquake)
+[![GoDoc](https://godoc.org/github.com/AkihiroSuda/goreplay?status.svg)](https://godoc.org/github.com/AkihiroSuda/goreplay)
 [![Build Status](https://travis-ci.org/AkihiroSuda/goreplay.svg?branch=master)](https://travis-ci.org/AkihiroSuda/goreplay)
 [![Go Report Card](https://goreportcard.com/badge/github.com/AkihiroSuda/goreplay)](https://goreportcard.com/report/github.com/AkihiroSuda/goreplay)
 
@@ -55,16 +55,16 @@ i=0
 i=2
 i=3
 i=4
-$ (for f in $(seq 1 10);do go run example/ex01/main.go | sha512sum -; done) | uniq | wc -l
+$ (for f in $(seq 1 10);do go run example/ex01/main.go | sha512sum -; done) | sort | uniq | wc -l
 4
 ```
 
 If you set `GRSEED`, the result becomes deterministic:
 ```
-$ (for f in $(seq 1 10);do GRSEED=foo go run example/ex01/main.go | sha512sum -; done) | uniq
+$ (for f in $(seq 1 10);do GRSEED=foo go run example/ex01/main.go | sha512sum -; done) | sort | uniq
 7ea818bd9e800609ab8e360688d975189033a9b9277d1ad9c9c96c9013f4ffeb1cf05c16ace9de737dcedaa68bc99162d611ac60b7169a43b4f9b17b1665f121  -
 
-$ (for f in $(seq 1 10);do GRSEED=bar go run example/ex01/main.go | sha512sum -; done) | uniq
+$ (for f in $(seq 1 10);do GRSEED=bar go run example/ex01/main.go | sha512sum -; done) | sort | uniq
 fc1c177ebbc58baa7e4960102cf26da25173559de0d7a08e00c37a4512eb0a579fc6b4b70f2c708fe1166a1c0641e8839305d5fe7e26624cabbce2cb8274d963  -
 ```
 
