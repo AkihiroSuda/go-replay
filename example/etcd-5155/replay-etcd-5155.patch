@@ -1,0 +1,29 @@
+diff --git a/raft/node.go b/raft/node.go
+index 727dec0..09da485 100644
+--- a/raft/node.go
++++ b/raft/node.go
+@@ -19,6 +19,8 @@ import (
+ 
+ 	pb "github.com/coreos/etcd/raft/raftpb"
+ 	"golang.org/x/net/context"
++
++	"github.com/AkihiroSuda/go-replay"
+ )
+ 
+ type SnapshotStatus int
+@@ -325,6 +327,7 @@ func (n *node) run(r *raft) {
+ 				// block incoming proposal when local node is
+ 				// removed
+ 				if cc.NodeID == r.id {
++					replay.Inject([]byte("run"))
+ 					n.propc = nil
+ 				}
+ 				r.removeNode(cc.NodeID)
+@@ -412,6 +415,7 @@ func (n *node) ProposeConfChange(ctx context.Context, cc pb.ConfChange) error {
+ func (n *node) step(ctx context.Context, m pb.Message) error {
+ 	ch := n.recvc
+ 	if m.Type == pb.MsgProp {
++		replay.Inject([]byte("step"))
+ 		ch = n.propc
+ 	}
+ 

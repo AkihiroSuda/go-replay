@@ -1,0 +1,464 @@
+$ for f in $(seq 1 50);do echo === GRSEED=14, f=$f ===; docker run -it --rm -e GRSEED=14 etcd-5155; done
+=== GRSEED=14, f=1 ===
+=== RUN   TestIssue2746
+==================
+WARNING: DATA RACE
+Write by goroutine 69:
+  github.com/coreos/etcd/raft.(*node).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:331 +0xfc6
+
+Previous read by goroutine 523:
+  github.com/coreos/etcd/raft.(*node).step()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:419 +0xd6
+  github.com/coreos/etcd/raft.(*node).Propose()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x152
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x98
+
+Goroutine 69 (running) created at:
+  github.com/coreos/etcd/raft.StartNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:205 +0x827
+  github.com/coreos/etcd/etcdserver.startNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:315 +0xbb5
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:320 +0x4318
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+
+Goroutine 523 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a5
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:229 +0x1296
+==================
+--- PASS: TestIssue2746 (12.25s)
+PASS
+Found 1 data race(s)
+=== GRSEED=14, f=2 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (13.00s)
+PASS
+=== GRSEED=14, f=3 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.83s)
+PASS
+=== GRSEED=14, f=4 ===
+=== RUN   TestIssue2746
+==================
+WARNING: DATA RACE
+Write by goroutine 59:
+  github.com/coreos/etcd/raft.(*node).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:331 +0xfc6
+
+Previous read by goroutine 558:
+  github.com/coreos/etcd/raft.(*node).step()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:419 +0xd6
+  github.com/coreos/etcd/raft.(*node).Propose()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x152
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x98
+
+Goroutine 59 (running) created at:
+  github.com/coreos/etcd/raft.StartNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:205 +0x827
+  github.com/coreos/etcd/etcdserver.startNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:315 +0xbb5
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:320 +0x4318
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+
+Goroutine 558 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a5
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:229 +0x1296
+==================
+--- PASS: TestIssue2746 (12.43s)
+PASS
+Found 1 data race(s)
+=== GRSEED=14, f=5 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.34s)
+PASS
+=== GRSEED=14, f=6 ===
+=== RUN   TestIssue2746
+==================
+WARNING: DATA RACE
+Write by goroutine 60:
+  github.com/coreos/etcd/raft.(*node).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:331 +0xfc6
+
+Previous read by goroutine 578:
+  github.com/coreos/etcd/raft.(*node).step()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:419 +0xd6
+  github.com/coreos/etcd/raft.(*node).Propose()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x152
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x98
+
+Goroutine 60 (running) created at:
+  github.com/coreos/etcd/raft.StartNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:205 +0x827
+  github.com/coreos/etcd/etcdserver.startNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:315 +0xbb5
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:320 +0x4318
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+
+Goroutine 578 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a5
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:229 +0x1296
+==================
+--- PASS: TestIssue2746 (12.33s)
+PASS
+Found 1 data race(s)
+=== GRSEED=14, f=7 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.79s)
+PASS
+=== GRSEED=14, f=8 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.53s)
+PASS
+=== GRSEED=14, f=9 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.61s)
+PASS
+=== GRSEED=14, f=10 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.62s)
+PASS
+=== GRSEED=14, f=11 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.29s)
+PASS
+=== GRSEED=14, f=12 ===
+=== RUN   TestIssue2746
+==================
+WARNING: DATA RACE
+Write by goroutine 64:
+  github.com/coreos/etcd/raft.(*node).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:331 +0xfc6
+
+Previous read by goroutine 503:
+  github.com/coreos/etcd/raft.(*node).step()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:419 +0xd6
+  github.com/coreos/etcd/raft.(*node).Propose()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x152
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x98
+
+Goroutine 64 (running) created at:
+  github.com/coreos/etcd/raft.StartNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:205 +0x827
+  github.com/coreos/etcd/etcdserver.startNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:315 +0xbb5
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:320 +0x4318
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+
+Goroutine 503 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a5
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:229 +0x1296
+==================
+--- PASS: TestIssue2746 (13.47s)
+PASS
+Found 1 data race(s)
+=== GRSEED=14, f=13 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (11.99s)
+PASS
+=== GRSEED=14, f=14 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.39s)
+PASS
+=== GRSEED=14, f=15 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.22s)
+PASS
+=== GRSEED=14, f=16 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.80s)
+PASS
+=== GRSEED=14, f=17 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.71s)
+PASS
+=== GRSEED=14, f=18 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.39s)
+PASS
+=== GRSEED=14, f=19 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (9.77s)
+PASS
+=== GRSEED=14, f=20 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (13.28s)
+PASS
+=== GRSEED=14, f=21 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.72s)
+PASS
+=== GRSEED=14, f=22 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (13.37s)
+PASS
+=== GRSEED=14, f=23 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.50s)
+PASS
+=== GRSEED=14, f=24 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (13.04s)
+PASS
+=== GRSEED=14, f=25 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.55s)
+PASS
+=== GRSEED=14, f=26 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.73s)
+PASS
+=== GRSEED=14, f=27 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.44s)
+PASS
+=== GRSEED=14, f=28 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.84s)
+PASS
+=== GRSEED=14, f=29 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (11.91s)
+PASS
+=== GRSEED=14, f=30 ===
+=== RUN   TestIssue2746
+==================
+WARNING: DATA RACE
+Write by goroutine 64:
+  github.com/coreos/etcd/raft.(*node).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:331 +0xfc6
+
+Previous read by goroutine 504:
+  github.com/coreos/etcd/raft.(*node).step()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:419 +0xd6
+  github.com/coreos/etcd/raft.(*node).Propose()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x152
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x98
+
+Goroutine 64 (running) created at:
+  github.com/coreos/etcd/raft.StartNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:205 +0x827
+  github.com/coreos/etcd/etcdserver.startNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:315 +0xbb5
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:320 +0x4318
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+
+Goroutine 504 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a5
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:229 +0x1296
+==================
+--- PASS: TestIssue2746 (12.32s)
+PASS
+Found 1 data race(s)
+=== GRSEED=14, f=31 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (11.95s)
+PASS
+=== GRSEED=14, f=32 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.42s)
+PASS
+=== GRSEED=14, f=33 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (13.10s)
+PASS
+=== GRSEED=14, f=34 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.04s)
+PASS
+=== GRSEED=14, f=35 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.56s)
+PASS
+=== GRSEED=14, f=36 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.89s)
+PASS
+=== GRSEED=14, f=37 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.57s)
+PASS
+=== GRSEED=14, f=38 ===
+=== RUN   TestIssue2746
+==================
+WARNING: DATA RACE
+Write by goroutine 75:
+  github.com/coreos/etcd/raft.(*node).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:331 +0xfc6
+
+Previous read by goroutine 372:
+  github.com/coreos/etcd/raft.(*node).step()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:419 +0xd6
+  github.com/coreos/etcd/raft.(*node).Propose()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x152
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x98
+
+Goroutine 75 (running) created at:
+  github.com/coreos/etcd/raft.StartNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:205 +0x827
+  github.com/coreos/etcd/etcdserver.startNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:315 +0xbb5
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:320 +0x4318
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+
+Goroutine 372 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a5
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:229 +0x1296
+==================
+--- PASS: TestIssue2746 (12.16s)
+PASS
+Found 1 data race(s)
+=== GRSEED=14, f=39 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.58s)
+PASS
+=== GRSEED=14, f=40 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.61s)
+PASS
+=== GRSEED=14, f=41 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (11.78s)
+PASS
+=== GRSEED=14, f=42 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (11.94s)
+PASS
+=== GRSEED=14, f=43 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.68s)
+PASS
+=== GRSEED=14, f=44 ===
+=== RUN   TestIssue2746
+==================
+WARNING: DATA RACE
+Write by goroutine 55:
+  github.com/coreos/etcd/raft.(*node).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:331 +0xfc6
+
+Previous read by goroutine 52:
+  github.com/coreos/etcd/raft.(*node).step()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:419 +0xd6
+  github.com/coreos/etcd/raft.(*node).Propose()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x152
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x98
+
+Goroutine 55 (running) created at:
+  github.com/coreos/etcd/raft.StartNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:205 +0x827
+  github.com/coreos/etcd/etcdserver.startNode()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:315 +0xbb5
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:320 +0x4318
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+
+Goroutine 52 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).sync()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a5
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:229 +0x1296
+==================
+--- PASS: TestIssue2746 (12.78s)
+PASS
+Found 1 data race(s)
+=== GRSEED=14, f=45 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.21s)
+PASS
+=== GRSEED=14, f=46 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.67s)
+PASS
+Too many goroutines running after all test(s).
+1 instances of:
+time.Sleep(...)
+        /usr/local/go/src/runtime/time.go:59 +0xf9
+github.com/AkihiroSuda/go-replay.(*Replayer).Inject(...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/AkihiroSuda/go-replay/replay.go:52 +0x2fe
+github.com/AkihiroSuda/go-replay.Inject(...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/AkihiroSuda/go-replay/replay.go:18 +0xb5
+github.com/coreos/etcd/raft.(*node).step(0xc820188cd0, 0x7fea9cf73b40, 0xc8295b91a0, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc8297e7540, ...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:418 +0xc6
+github.com/coreos/etcd/raft.(*node).Propose(...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x153
+github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1(...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x99
+created by github.com/coreos/etcd/etcdserver.(*EtcdServer).sync
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a6
+=== GRSEED=14, f=47 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.22s)
+PASS
+Too many goroutines running after all test(s).
+1 instances of:
+time.Sleep(...)
+        /usr/local/go/src/runtime/time.go:59 +0xf9
+github.com/AkihiroSuda/go-replay.(*Replayer).Inject(...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/AkihiroSuda/go-replay/replay.go:52 +0x2fe
+github.com/AkihiroSuda/go-replay.Inject(...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/AkihiroSuda/go-replay/replay.go:18 +0xb5
+github.com/coreos/etcd/raft.(*node).step(0xc820233360, 0x7f6eb42ff4f8, 0xc82937c8a0, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc8297bb5e0, ...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:418 +0xc6
+github.com/coreos/etcd/raft.(*node).Propose(...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/raft/node.go:393 +0x153
+github.com/coreos/etcd/etcdserver.(*EtcdServer).sync.func1(...)
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:860 +0x99
+created by github.com/coreos/etcd/etcdserver.(*EtcdServer).sync
+        /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:862 +0x2a6
+=== GRSEED=14, f=48 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.24s)
+PASS
+=== GRSEED=14, f=49 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (12.45s)
+PASS
+=== GRSEED=14, f=50 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (11.89s)
+PASS

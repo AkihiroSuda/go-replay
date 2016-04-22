@@ -1,0 +1,271 @@
+$ for f in $(seq 1 50);do echo === f=$f ===; docker run -it --rm etcd-5155; done
+=== f=1 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.37s)
+PASS
+=== f=2 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.95s)
+PASS
+=== f=3 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.70s)
+PASS
+=== f=4 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.81s)
+PASS
+=== f=5 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.13s)
+PASS
+=== f=6 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.46s)
+PASS
+=== f=7 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.81s)
+PASS
+=== f=8 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.11s)
+PASS
+=== f=9 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (6.75s)
+PASS
+=== f=10 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.35s)
+PASS
+=== f=11 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.05s)
+PASS
+=== f=12 ===
+=== RUN   TestIssue2746
+==================
+WARNING: DATA RACE
+Read by goroutine 37:
+  github.com/coreos/etcd/etcdserver/stats.(*ServerStats).BecomeLeader()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/stats/server.go:145 +0x37
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:173 +0x684
+
+Previous write by goroutine 17:
+  ??()
+      -:0 +0xffffffffffffffff
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).Process()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:503 +0x362
+  github.com/coreos/etcd/rafthttp.startPeer.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/rafthttp/peer.go:144 +0x169
+
+Goroutine 37 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*raftNode).start()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:234 +0x329
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:529 +0x1f5
+
+Goroutine 17 (finished) created at:
+  github.com/coreos/etcd/rafthttp.startPeer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/rafthttp/peer.go:151 +0xa8d
+  github.com/coreos/etcd/rafthttp.(*Transport).AddPeer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/rafthttp/transport.go:234 +0x4f2
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:431 +0x317a
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+==================
+==================
+WARNING: DATA RACE
+Write by goroutine 37:
+  github.com/coreos/etcd/etcdserver/stats.(*ServerStats).BecomeLeader()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/stats/server.go:147 +0x73
+  github.com/coreos/etcd/etcdserver.(*raftNode).start.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:173 +0x684
+
+Previous read by goroutine 17:
+  ??()
+      -:0 +0xffffffffffffffff
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).Process()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:503 +0x362
+  github.com/coreos/etcd/rafthttp.startPeer.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/rafthttp/peer.go:144 +0x169
+
+Goroutine 37 (running) created at:
+  github.com/coreos/etcd/etcdserver.(*raftNode).start()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/raft.go:234 +0x329
+  github.com/coreos/etcd/etcdserver.(*EtcdServer).run()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:529 +0x1f5
+
+Goroutine 17 (finished) created at:
+  github.com/coreos/etcd/rafthttp.startPeer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/rafthttp/peer.go:151 +0xa8d
+  github.com/coreos/etcd/rafthttp.(*Transport).AddPeer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/rafthttp/transport.go:234 +0x4f2
+  github.com/coreos/etcd/etcdserver.NewServer()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/etcdserver/server.go:431 +0x317a
+  github.com/coreos/etcd/integration.(*member).Launch()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:543 +0x72
+  github.com/coreos/etcd/integration.(*cluster).Launch.func1()
+      /go/src/github.com/coreos/etcd/gopath/src/github.com/coreos/etcd/integration/cluster.go:141 +0x2e
+==================
+--- PASS: TestIssue2746 (5.49s)
+PASS
+Found 2 data race(s)
+=== f=13 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.66s)
+PASS
+=== f=14 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (6.08s)
+PASS
+=== f=15 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.44s)
+PASS
+=== f=16 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.81s)
+PASS
+=== f=17 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.22s)
+PASS
+=== f=18 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.95s)
+PASS
+=== f=19 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.91s)
+PASS
+=== f=20 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.01s)
+PASS
+=== f=21 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.16s)
+PASS
+=== f=22 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.94s)
+PASS
+=== f=23 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.23s)
+PASS
+=== f=24 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (6.01s)
+PASS
+=== f=25 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.13s)
+PASS
+=== f=26 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.32s)
+PASS
+=== f=27 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.18s)
+PASS
+=== f=28 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.69s)
+PASS
+=== f=29 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.80s)
+PASS
+=== f=30 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.06s)
+PASS
+=== f=31 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.79s)
+PASS
+=== f=32 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.15s)
+PASS
+=== f=33 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.97s)
+PASS
+=== f=34 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.00s)
+PASS
+=== f=35 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.82s)
+PASS
+=== f=36 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.91s)
+PASS
+=== f=37 ===
+=== RUN   TestIssue2746
+
+--- PASS: TestIssue2746 (4.82s)
+PASS
+=== f=38 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.43s)
+PASS
+=== f=39 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.50s)
+PASS
+=== f=40 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.03s)
+PASS
+=== f=41 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.27s)
+PASS
+=== f=42 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.61s)
+PASS
+=== f=43 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.48s)
+PASS
+=== f=44 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.23s)
+PASS
+=== f=45 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.96s)
+PASS
+=== f=46 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (4.98s)
+PASS
+=== f=47 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.19s)
+PASS
+=== f=48 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.83s)
+PASS
+=== f=49 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.02s)
+PASS
+=== f=50 ===
+=== RUN   TestIssue2746
+--- PASS: TestIssue2746 (5.02s)
+PASS

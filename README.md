@@ -68,6 +68,9 @@ $ (for f in $(seq 1 10);do GRSEED=bar go run example/ex01/main.go | sha512sum -;
 fc1c177ebbc58baa7e4960102cf26da25173559de0d7a08e00c37a4512eb0a579fc6b4b70f2c708fe1166a1c0641e8839305d5fe7e26624cabbce2cb8274d963  -
 ```
 
+## Practical Examples
+
+ - [example/etcd-5155](example/etcd-5155): data race ([coreos/etcd#5155](https://github.com/coreos/etcd/issues/5155))
 
 ## Hint
 You may use [AspectGo](https://github.com/AkihiroSuda/golang-exp-aspectgo/tree/aspectgo-master/aspectgo)(WIP) for automatic instrumentation.
