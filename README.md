@@ -76,6 +76,6 @@ fc1c177ebbc58baa7e4960102cf26da25173559de0d7a08e00c37a4512eb0a579fc6b4b70f2c708f
 You may use [AspectGo](https://github.com/AkihiroSuda/golang-exp-aspectgo/tree/aspectgo-master/aspectgo)(WIP) for automatic instrumentation.
 
 ## Related project
- * [Earthquake: a programmable fuzzy scheduler for testing distributed systems](https://github.com/osrg/earthquake)
+ * [Namazu: a programmable fuzzy scheduler for testing distributed systems](https://github.com/osrg/namazu)
 
-GoReplay is planned to be merged to Earthquake.
+GoReplay is planned to be merged to Namazu.
