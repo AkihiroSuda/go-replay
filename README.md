@@ -73,7 +73,7 @@ fc1c177ebbc58baa7e4960102cf26da25173559de0d7a08e00c37a4512eb0a579fc6b4b70f2c708f
  - [example/etcd-5155](example/etcd-5155): data race ([coreos/etcd#5155](https://github.com/coreos/etcd/issues/5155))
 
 ## Hint
-You may use [AspectGo](https://github.com/AkihiroSuda/golang-exp-aspectgo/tree/aspectgo-master/aspectgo)(WIP) for automatic instrumentation.
+You may use [AspectGo](https://github.com/AkihiroSuda/aspectgo)(WIP) for automatic instrumentation.
 
 ## Related project
  * [Namazu: a programmable fuzzy scheduler for testing distributed systems](https://github.com/osrg/namazu)
