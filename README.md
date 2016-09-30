@@ -14,6 +14,13 @@ GoReplay injects `time.Sleep(time.Duration(hash(seed, context, stack)) % maxInte
  * `stack`: runtime stack. (planned)
  * `maxInterval`: environmental variable `GRMAX` (should be `time.Duration` string). The default value is `10ms`.
 
+
+Name|Type|Default|Description
+---|---|---|---
+`GRSEED`|`string`|(empty)|The seed value for determining the delay. An empty value disables GoReplay.
+`GRMAX`|`time.Duration`|`10ms`|Max delay.
+`GRZBIAS`|`float64`|`0.0`|Probability of enforcing the delay to be zero. must be in `[0.0, 1.0)`.
+
 ## Usage
 
 Follow the example: [`example/ex01`](example/ex01).
