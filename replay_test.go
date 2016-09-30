@@ -7,10 +7,9 @@ import (
 )
 
 func TestInjectWithFixedSeedAndNilContext(t *testing.T) {
-	r := &Replayer{
-		Enabled: true,
+	r := &BasicReplayer{
 		Debug:   true,
-		Seed:    "seed",
+		Seed:    []byte("seed"),
 		Max:     10 * time.Millisecond,
 	}
 	if err := r.Init(); err != nil {
@@ -27,10 +26,9 @@ func TestInjectWithFixedSeedAndNilContext(t *testing.T) {
 }
 
 func TestInjectWithFixedSeedAndVariableContext(t *testing.T) {
-	r := &Replayer{
-		Enabled: true,
+	r := &BasicReplayer{
 		Debug:   true,
-		Seed:    "seed",
+		Seed:    []byte("seed"),
 		Max:     10 * time.Millisecond,
 	}
 	if err := r.Init(); err != nil {
@@ -51,10 +49,9 @@ func TestInjectWithFixedSeedAndVariableContext(t *testing.T) {
 }
 
 func TestInjectWithZBias(t *testing.T) {
-	r := &Replayer{
-		Enabled: true,
+	r := &BasicReplayer{
 		Debug:   true,
-		Seed:    "seed",
+		Seed:    []byte("seed"),
 		Max:     10 * time.Millisecond,
 		ZBias:   0.9,
 	}
