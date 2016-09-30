@@ -4,7 +4,9 @@ package replay
 import (
 	"hash/fnv"
 	"log"
+	"math/rand"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -12,14 +14,19 @@ import (
 func Inject(context []byte) {
 	if DefaultReplayer == nil {
 		// should not panic here
-		log.Printf("Replayer called before initialization")
+		log.Printf("Warning: Replayer called before initialization")
 		return
 	}
 	DefaultReplayer.Inject(context)
 }
 
+func probab(r *rand.Rand, p float64) bool {
+	return r.Float64() < p
+}
+
 // Replayer is an instance of Replayer.
 type Replayer struct {
+	random *rand.Rand
 	// Enabled is true if this instance is enabled.
 	Enabled bool
 	// Debug is true if debugging mode.
@@ -29,11 +36,13 @@ type Replayer struct {
 	Seed string
 	// Max is the max value for delays injected by Replayer.
 	Max time.Duration
+	// ZBias is the probability of enforcing the delay to be zero.
+	ZBias float64
 }
 
 // Init initializes Replayer.
 func (r *Replayer) Init() error {
-	// nothing to do currently
+	r.random = rand.New(rand.NewSource(time.Now().UnixNano()))
 	return nil
 }
 
@@ -41,9 +50,6 @@ func (r *Replayer) Init() error {
 // The delay can be replayed with the seed value.
 // Context can be nil.
 func (r *Replayer) Inject(context []byte) {
-	if !r.Enabled {
-		return
-	}
 	t := r.inject(context)
 	if r.Debug {
 		log.Printf("t=%s (seed=%s, context=%s)",
@@ -53,6 +59,17 @@ func (r *Replayer) Inject(context []byte) {
 }
 
 func (r *Replayer) inject(context []byte) time.Duration {
+	if !r.Enabled {
+		return 0
+	}
+	if r.random == nil {
+		log.Printf("Warning: inject called before initialization")
+		return 0
+	}
+	if probab(r.random, r.ZBias) {
+		return 0
+	}
+
 	h := fnv.New64a()
 	h.Write([]byte(r.Seed))
 	if context != nil {
@@ -72,6 +89,9 @@ const DefaultSeed = ""
 
 // DefaultMax is the default max delay for DefaultReplayer.
 const DefaultMax = "10ms"
+
+// DefaultZBias is the default zbias for DefaultReplayer.
+const DefaultZBias = "0.0"
 
 func init() {
 	enabled := true
@@ -97,11 +117,26 @@ func init() {
 		enabled = false
 	}
 
+	zBiasStr := os.Getenv("GRZBIAS")
+	if zBiasStr == "" {
+		zBiasStr = DefaultZBias
+	}
+	zBias, err := strconv.ParseFloat(zBiasStr, 64)
+	if err != nil {
+		log.Printf("Error while parsing GRZBIAS: %s", err)
+		enabled = false
+	}
+	if zBias < 0.0 || zBias > 1.0 {
+		log.Printf("Error: invalid GRZBIAS: %f", zBias)
+		enabled = false
+	}
+
 	DefaultReplayer = &Replayer{
 		Enabled: enabled,
 		Debug:   debug,
 		Seed:    seed,
 		Max:     max,
+		ZBias:   zBias,
 	}
 	err = DefaultReplayer.Init()
 	if err != nil {
